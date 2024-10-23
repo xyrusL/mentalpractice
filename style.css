@@ -1,0 +1,324 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    min-height: 100vh;
+    color: #eee;
+}
+
+header,
+nav,
+nav ul {
+    display: flex;
+}
+
+header {
+    background-color: #333;
+    cursor: pointer;
+}
+
+nav {
+    padding: 1rem;
+    justify-content: space-between;
+    width: 100%;
+}
+
+button {
+    cursor: pointer;
+    font-family: inherit;
+    outline: none;
+    border: none;
+}
+
+nav ul li {
+    margin-right: 10px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0px;
+    font-family: inherit;
+    padding: 0px;
+}
+
+/* Highlight Section */
+
+.highlight {
+    display: flex;
+    min-height: 360px;
+    max-height: 380px;
+    background-color: #3c0798;
+    padding: 2rem;
+}
+
+.highlight .container {
+    display: flex;
+    flex: 1;
+    padding: 1rem;
+
+}
+
+.highlight .container .leftside,
+.highlight .container .rightside {
+    flex: 1;
+    padding: 1rem;
+}
+
+.highlight .container .leftside {
+    display: flex;
+    flex-direction: column;
+    text-align: justify;
+}
+
+.highlight .container .leftside h2,
+.highlight .container .leftside h3 {
+    margin-bottom: 1rem;
+}
+
+.highlight .container .leftside button {
+    padding: 0.5rem 1rem;
+    width: 30%;
+    align-self: flex-end;
+    border-radius: 10px;
+    background-color: #209c3f; 
+    color: #fff;
+    text-align: center;
+    transition: background-color 0.3s ease; 
+    text-transform: uppercase;
+    font-size: 20px;
+}
+
+.highlight .container .leftside button:hover {
+    color: #fff;
+    background-color: #063906;
+}
+
+.highlight .container .rightside .box-content {
+    height: 100%;
+}
+
+.highlight .container .rightside .box-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Main Content */
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-container .bar {
+    flex: 1;
+    background-color: #333;
+    text-align: center;
+    padding: 1rem;
+}
+
+.main-container .bar h4 {
+    font-size: 30px;
+}
+
+.main-container .gameselection {
+    color: black;
+    padding: 1rem 4rem;
+}
+
+.main-container .gameselection ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+}
+
+.main-container .gameselection ul li {
+    display: flex;
+    flex-basis: calc(33.33% - 1rem);
+    height: 150px;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1rem;
+    gap: 1rem;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.main-container .gameselection ul li:hover {
+   background-color: #ada5a5;
+}
+
+.main-container .gameselection .symbol {
+    font-size: 6rem;
+    display: flex;
+    align-items: center;
+}
+
+.main-container .gameselection .symbol i {
+    border: 2px solid black;
+    padding: .5rem;
+}
+
+.main-container .gameselection .symbol-details {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.main-container .gameselection .symbol-details span {
+    font-size: 36px;
+    flex: 1;
+}
+
+.main-container .gameselection ul li:nth-child(1) {
+    border: 3px solid #ffd700;
+}
+
+.main-container .gameselection ul li:nth-child(2) {
+    border: 3px solid #ff0000;
+}
+
+.main-container .gameselection ul li:nth-child(3) {
+    border: 3px solid #808000;
+}
+
+.main-container .gameselection ul li:nth-child(4) {
+    border: 3px solid #008000;
+}
+
+.main-container .gameselection ul li:nth-child(5) {
+    border: 3px solid #0000ff;
+}
+
+.main-container .gameselection ul li:nth-child(6) {
+    border: 3px solid #800080;
+}
+
+.main-container .gameselection ul li:nth-child(7) {
+    border: 3px solid #808080;
+}
+
+.main-container .btn-plus {
+    background-color: #ffd700;
+}
+
+.main-container .btn-minus {
+    background-color: #ff0000;
+}
+
+.main-container .btn-times {
+    background-color: #808000;
+}
+
+.main-container .btn-divide {
+    background-color: #008000;
+}
+
+.main-container .btn-fraction {
+    background-color: #0000ff;
+}
+
+.main-container .btn--decimal {
+    background-color: #800080;
+}
+
+.main-container .btn-random {
+    background-color: #808080;
+}
+
+.main-container .gameselection .symbol-details button {
+    flex: 1;
+    border-radius: 8px;
+    font-size: 20px;
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+.reason-container {
+    color: black;
+    display: flex;
+    padding: 1rem 4rem;
+    gap: 1rem;
+}
+
+.reason-container div {
+    flex: 1;
+    text-align: justify;
+    border: 3px solid #2F4F7F;
+    padding: 1rem;
+}
+
+.reason-container i {
+    color: gold;
+}
+
+.reason-container div h4 {
+    font-size: 30px;
+    margin-bottom: 6px;
+}
+
+.reason-container div p {
+    font-size: 15px;
+}
+
+.mis-vis {
+    color: black;
+    display: flex;
+    padding: 1rem 4rem;
+    gap: 1rem;  
+}
+
+.mis-vis div {
+    flex: 1;
+    padding: .5rem;
+    border: 3px solid #964B00;
+
+}
+
+.mis-vis div h4 {
+    text-align: center;
+    font-size: 26px;
+}
+
+.mis-vis div p{
+    text-align: justify;
+    font-size: 18px;
+}
+
+
+/* Footer Section */
+
+footer {
+    background-color: #333;
+    padding: 1rem 4rem;
+}
+
+footer .footer-container {
+    text-align: center;
+}
+
+footer .footer-container h3 {
+    margin-bottom: 8px;
+}
+
