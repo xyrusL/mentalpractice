@@ -80,8 +80,7 @@ A tool designed to enhance mathematical skills through interactive practice exer
 
 ## Screenshots
 
-![Screenshot 1](path/to/screenshot1.png)
-![Screenshot 2](path/to/screenshot2.png)
+![Screenshot 1](./images/ss1.png)
 
 ## Contributing
 
