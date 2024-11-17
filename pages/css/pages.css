@@ -13,14 +13,26 @@ body {
 }
 
 .monitoring {
-    color: green;
     font-weight: bold;
     text-align: center;
     font-size: 2rem;
-    flex: .5;
+    display: flex;
+    position: relative;
 }
 
-.monitoring span, .math-container #userInput {
+.monitoring span {
+    color: green;
+    width: 100%;
+    text-align: center;
+}
+
+.monitoring .scoring{
+    color: rgb(66, 66, 121);
+    position: absolute;
+    right: 0;
+}
+
+.monitoring #popmsg, .math-container #userInput {
     opacity: 0;
 }
 

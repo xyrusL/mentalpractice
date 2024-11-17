@@ -15,6 +15,11 @@ let operator = "";
 let answer = 0;
 
 let diffuculty = "easy";
+let mediumRequireScore = 100;
+let hardRequireScore = 200;
+let userPoints = 0;
+let timer = 0;
+let timerInterval;
 
 function sigleNum() {
     return Math.floor(Math.random() * 9) + 1;
@@ -27,7 +32,7 @@ function doubleNum() {
 function evaluateLevel() {
     console.log("User Level: " + diffuculty);
 
-    if (correctAnswer >= 3 && correctAnswer <= 5) {
+    if (correctAnswer >= 1 && correctAnswer <= 5) {
         diffuculty = "medium";
     } else if (correctAnswer > 5) {
         diffuculty = "hard";
@@ -54,32 +59,58 @@ function generateMathQuestion() {
     }
 }
 
+function startTimer() {
+    timer = 0;
+    timerInterval = setInterval(() => {
+        timer++;
+    }, 1000);
+}
+
+function userPointsCalculation(time) {
+    if (time <= 1) return 20;
+    if (time == 2) return 18;
+    if (time == 3) return 16;
+    if (time == 4) return 14;
+    if (time == 5) return 12;
+    if (time == 6) return 10;
+    if (time == 7) return 8;
+    if (time >= 8 && time <= 10) return 6;
+    return Math.max(0, 20 - time * 2);
+}
+
+function stopTimer() {
+    clearInterval(timerInterval); 
+}
+
 function checkAnswer(userAnswer) {
+    let score = document.getElementById("score");
     if (userAnswer === answer) {
         correctAnswer++;
-        showmsg("correct");
+        stopTimer(); 
+        userPoints += userPointsCalculation(timer);
+        score.textContent = `${userPoints} points`;
+        showmsg(true);
     } else {
         incorrectAnswer++;
         userInput.textContent = "0";
         userInput.style.opacity = "0";
-
-        showmsg("incorrect");
+        showmsg(false);
     }
 }
 
 function showmsg(message) {
-    popmsg.textContent = message == "correct" ? "Your answer is correct!" : "Your answer is incorrect.";
-    popmsg.style.color = message == "correct" ? "green" : "red";
+    popmsg.textContent = message ? "Your answer is correct!" : "Your answer is incorrect>";
+    popmsg.style.color = message ? "green" : "red";
     popmsg.style.opacity = "1";
 
     setTimeout(() => {
         popmsg.style.opacity = "0";
-        message == "correct" ? nextQeustion() : null;
-    }, 500);
+        message ? nextQeustion() : null;
+    }, 1000);
 }
 
 function nextQeustion() {
-    userInput.textContent = "0"
+    userInput.textContent = "0";
     userAnswerContent = 0;
     userInput.style.opacity = "0";
 
@@ -88,7 +119,6 @@ function nextQeustion() {
 
     if (sessionStorage.getItem('gameOperation')) {
         let operation = sessionStorage.getItem('gameOperation');
-
         switch (operation) {
             case 'add':
                 operator = '&plus;';
@@ -110,6 +140,8 @@ function nextQeustion() {
                 console.log(`Invalid operation: ${operation}`);
                 break;
         }
+
+        startTimer();
     } else {
         console.log("Error: gameOperation not found in sessionStorage")
     }
@@ -131,6 +163,12 @@ function getOperatorSymbol(htmlOperator) {
     }
 }
 
+function setPoints(time) {
+    let score = document.getElementById("score");
+    let calculatedScore = (correctAnswer * 10) - time;
+    score.textContent = calculatedScore;
+}
+
 document.addEventListener('keyup', (e) => {
     if (e.key >= '0' && e.key <= '9' || e.key === '-') {
         userInput.style.opacity = "1";
@@ -142,9 +180,8 @@ document.addEventListener('keyup', (e) => {
             userInput.textContent = userAnswerContent;
         }
 
-        if (userAnswerContent === answer) {
-            correctAnswer++;
-            showmsg("correct");
+        if (userAnswerContent.toString().length >= answer.toString().length) {
+            checkAnswer(userAnswerContent);
         }
     }
 });
