@@ -65,93 +65,97 @@ function startTimer() {
         timer++;
     }, 1000);
 }
+  function userPointsCalculation(time) {
+      if (time < 0) return 0;
+      if (time <= 1) return 20;
+      if (time == 2) return 18;
+      if (time == 3) return 16;
+      if (time == 4) return 14;
+      if (time == 5) return 12;
+      if (time == 6) return 10;
+      if (time == 7) return 8;
+      if (time >= 8 && time <= 10) return 6;
+      return Math.max(0, 20 - time * 2);
+  }
 
-function userPointsCalculation(time) {
-    if (time <= 1) return 20;
-    if (time == 2) return 18;
-    if (time == 3) return 16;
-    if (time == 4) return 14;
-    if (time == 5) return 12;
-    if (time == 6) return 10;
-    if (time == 7) return 8;
-    if (time >= 8 && time <= 10) return 6;
-    return Math.max(0, 20 - time * 2);
-}
+  function stopTimer() {
+      clearInterval(timerInterval); 
+  }
 
-function stopTimer() {
-    clearInterval(timerInterval); 
-}
+  function checkAnswer(userAnswer) {
+      let score = document.getElementById("score");
+      if (userAnswer === answer) {
+          correctAnswer++;
+          stopTimer(); 
+          userPoints += userPointsCalculation(timer);
+          score.textContent = `${userPoints} points`;
+          showmsg(true);  // showmsg will call nextQeustion after 1 second
+      } else {
+          incorrectAnswer++;
+          userInput.textContent = "0";
+          userInput.style.opacity = "0";
+          showmsg(false);
+      }
+  }
 
-function checkAnswer(userAnswer) {
-    let score = document.getElementById("score");
-    if (userAnswer === answer) {
-        correctAnswer++;
-        stopTimer(); 
-        userPoints += userPointsCalculation(timer);
-        score.textContent = `${userPoints} points`;
-        showmsg(true);  // showmsg will call nextQeustion after 1 second
-    } else {
-        incorrectAnswer++;
-        userInput.textContent = "0";
-        userInput.style.opacity = "0";
-        showmsg(false);
-    }
-}
+  function showmsg(message) {
+      popmsg.textContent = message ? "Your answer is correct!" : "Your answer is incorrect";
+      popmsg.style.color = message ? "green" : "red";
+      popmsg.style.opacity = "1";
 
-function showmsg(message) {
-    popmsg.textContent = message ? "Your answer is correct!" : "Your answer is incorrect";
-    popmsg.style.color = message ? "green" : "red";
-    popmsg.style.opacity = "1";
+      setTimeout(() => {
+          popmsg.style.opacity = "0";
+          message ? nextQeustion() : null;
+      }, 1000);
+  }
 
-    setTimeout(() => {
-        popmsg.style.opacity = "0";
-        message ? nextQeustion() : null;
-    }, 1000);
-}
+  function nextQeustion() {
+      userInput.textContent = "0";
+      userAnswerContent = 0;
+      userInput.style.opacity = "0";
 
-function nextQeustion() {
-    userInput.textContent = "0";
-    userAnswerContent = 0;
-    userInput.style.opacity = "0";
+      generateMathQuestion();
+      evaluateLevel();
 
-    generateMathQuestion();
-    evaluateLevel();
+      if (sessionStorage.getItem('gameOperation')) {
+          let operation = sessionStorage.getItem('gameOperation');
+          switch (operation) {
+              case 'add':
+                  operator = '+';
+                  answer = first_num + second_num;
+                  break;
+              case 'minus':
+                  operator = '−';
+                  answer = first_num - second_num;
+                  break;
+              case 'multiply':
+                  operator = '×';
+                  answer = first_num * second_num;
+                  break;
+              case 'divide':
+                  operator = '÷';
+                  // Prevent division by zero
+                  if (second_num === 0) {
+                      second_num = 1;
+                  }
+                  answer = Math.round(first_num / second_num);
+                  break;
+              default:
+                  console.log(`Invalid operation: ${operation}`);
+                  break;
+          }
 
-    if (sessionStorage.getItem('gameOperation')) {
-        let operation = sessionStorage.getItem('gameOperation');
-        switch (operation) {
-            case 'add':
-                operator = '&plus;';
-                answer = first_num + second_num;
-                break;
-            case 'minus':
-                operator = '&minus;';
-                answer = first_num - second_num;
-                break;
-            case 'multiply':
-                operator = '&times;';
-                answer = first_num * second_num;
-                break;
-            case 'divide':
-                operator = '&divide;';
-                answer = Math.round(first_num / second_num);
-                break;
-            default:
-                console.log(`Invalid operation: ${operation}`);
-                break;
-        }
+          startTimer();
+      } else {
+          console.log("Error: gameOperation not found in sessionStorage")
+      }
 
-        startTimer();
-    } else {
-        console.log("Error: gameOperation not found in sessionStorage")
-    }
+      firstNum.textContent = first_num;
+      op.innerHTML = operator;
+      secondNum.textContent = second_num;
 
-    firstNum.textContent = first_num;
-    op.innerHTML = operator;
-    secondNum.textContent = second_num;
-
-    console.log(`Question: ${first_num} ${getOperatorSymbol(operator)} ${second_num} = ${answer}`);
-}
+      console.log(`Question: ${first_num} ${getOperatorSymbol(operator)} ${second_num} = ${answer}`);
+  }
 
 function getOperatorSymbol(htmlOperator) {
     switch(htmlOperator) {
