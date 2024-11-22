@@ -89,7 +89,7 @@ function checkAnswer(userAnswer) {
         stopTimer(); 
         userPoints += userPointsCalculation(timer);
         score.textContent = `${userPoints} points`;
-        showmsg(true);
+        showmsg(true);  // showmsg will call nextQeustion after 1 second
     } else {
         incorrectAnswer++;
         userInput.textContent = "0";
@@ -99,7 +99,7 @@ function checkAnswer(userAnswer) {
 }
 
 function showmsg(message) {
-    popmsg.textContent = message ? "Your answer is correct!" : "Your answer is incorrect>";
+    popmsg.textContent = message ? "Your answer is correct!" : "Your answer is incorrect";
     popmsg.style.color = message ? "green" : "red";
     popmsg.style.opacity = "1";
 
